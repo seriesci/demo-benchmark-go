@@ -1,0 +1,18 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.12
+
+    steps:
+      - checkout
+
+      - run:
+          name: POST SeriesCI
+          command: |
+            go test -bench=. | grep BenchmarkEfficient | awk '{print $3}' | xargs -I {} curl \
+              --header "Authorization: Token ${TOKEN}" \
+              --data value="{}" \
+              --data sha="${CIRCLE_SHA1}" \
+              https://seriesci.com/api/repos/seriesci/bench/benchmark/values
