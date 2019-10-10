@@ -11,8 +11,8 @@ jobs:
       - run:
           name: POST SeriesCI
           command: |
-            go test -bench=. | grep BenchmarkEfficient | awk '{print $3}' | xargs -I {} curl \
+            go test -bench=. | grep BenchmarkEfficient | awk '{print sprintf("%s %s", $3, $4)}' | xargs -I {} curl \
               --header "Authorization: Token ${TOKEN}" \
               --data value="{}" \
               --data sha="${CIRCLE_SHA1}" \
-              https://seriesci.com/api/repos/seriesci/bench/benchmark/values
+              https://seriesci.com/api/repos/seriesci/bench/benchmark/combined
