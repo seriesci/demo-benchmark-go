@@ -10,3 +10,7 @@ Go demo application for continuous benchmarks.
 ```bash
 go test -bench=. | grep BenchmarkEfficient | awk '{print $3}'
 ```
+
+## Live preview
+
+https://seriesci.com/seriesci/demo-benchmark-go
